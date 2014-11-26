@@ -4,11 +4,11 @@
 %table#movies
   %thead
     %tr
-      %th 
-        %a#title_header{ href: movies_path({ order: "title" })} Movie Title
+      %th{ class: @sort == "title" ? "hilite" : nil }
+        %a#title_header{ href: movies_path({ order: :title })} Movie Title
       %th Rating
-      %th
-        %a#release_date_header{ href: movies_path({ order: "release_date"}) } Release Date
+      %th{ class: @sort == "date" ? "hilite" : nil }
+        %a#release_date_header{ href: movies_path({order: :release_date})} Release Date
       %th More Info
   %tbody
     - @movies.each do |movie|
@@ -19,3 +19,5 @@
         %td= link_to "More about #{movie.title}", movie_path(movie)
 
 = link_to 'Add new movie', new_movie_path
+-if @sort == 'title'
+  %a.hilite hola

@@ -10,8 +10,10 @@ class MoviesController < ApplicationController
     # debugger
     if params[:order] == "title"
       @movies = Movie.order(:title)
+      @sort = "title"
     elsif params[:order] == "release_date"
-      @movies = Movie.order(release_date: :desc)
+      @movies = Movie.order("release_date")
+      @sort = "date"
     else
       @movies = Movie.all
     end
