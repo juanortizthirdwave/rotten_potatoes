@@ -12,4 +12,10 @@ module MoviesHelper
   def table_head_class(value)
     (@order == value) ? "hilite" : nil
   end
+
+  def rating_hash(ratings)
+    ratings.reduce({}) do |hash, item|
+      hash.merge(item.to_sym => 1)
+    end 
+  end
 end

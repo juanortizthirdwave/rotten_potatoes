@@ -12,10 +12,10 @@ class MoviesController < ApplicationController
     @all_ratings = Movie.rating
     session[:order] = params[:order] if params[:order]
     @order = session[:order]
-
+# debugger
     unless params[:ratings]
       session[:ratings] ||= @all_ratings 
-      @ratings ||= session[:ratings]
+      @ratings = session[:ratings]
     end
 
     if params[:ratings]
