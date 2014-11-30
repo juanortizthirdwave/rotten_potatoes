@@ -3,32 +3,27 @@ class MoviesController < ApplicationController
   def show
     id = params[:id] # retrieve movie ID from URI route
     @movie = Movie.find(id) # look up movie by unique ID
-    @order = session[:order]
-    @ratings = session[:ratings].reduce({}){ |acc, it| acc.merge!({ :"#{it}" => 1 })}
     # will render app/views/movies/show.<extension> by default
   end
 
   def index
     @all_ratings = Movie.rating
+
     session[:order] = params[:order] if params[:order]
     @order = session[:order]
-# debugger
-    unless params[:ratings]
-      session[:ratings] ||= @all_ratings 
-      @ratings = session[:ratings]
-    end
 
     if params[:ratings]
-      session[:ratings] = params[:ratings].keys
+      session[:ratings] = params[:ratings]
       @ratings = session[:ratings]
-      @movies = Movie.where(rating: @ratings).order(@order)
+      @movies = Movie.where(rating: @ratings.keys).order(@order)
     else
+      session[:ratings] ||= @all_ratings 
+      @ratings = session[:ratings]
       @movies = Movie.order(@order)
     end
   end
 
   def new
-    # default: render 'new' template
   end
 
   def create
