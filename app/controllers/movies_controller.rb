@@ -8,7 +8,7 @@ class MoviesController < ApplicationController
 
   def index
     @all_ratings = Movie.rating
-# debugger
+    
     redirect_to movies_path(order: session[:order], ratings: session[:ratings]) if empty_params?
 
     session[:order] = params[:order] if params[:order]
