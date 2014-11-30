@@ -8,8 +8,10 @@ class MoviesController < ApplicationController
 
   def index
     @all_ratings = Movie.rating
-    @order =  params[:order]
-    session[:order] = @order
+
+    session[:order] ||= params[:order]
+    @order = session[:order]
+debugger
     unless params[:ratings]
       @rating_hash = session[:ratings] ? { rating: session[:ratings] } : { rating: @all_ratings }
     end
@@ -20,11 +22,11 @@ class MoviesController < ApplicationController
       session.clear
       session[:ratings] = params[:ratings].keys
       @rating_hash = { rating: session[:ratings] }
-      @movies = Movie.where(@rating_hash).order(session[:order])
+      @movies = Movie.where(@rating_hash).order(@order)
     elsif session[:ratings]
-      @movies = Movie.where(rating: session[:ratings]).order(session[:order])
+      @movies = Movie.where(rating: session[:ratings]).order(@order)
     else
-      @movies = Movie.order(session[:order])
+      @movies = Movie.order(@order)
     end
   end
 
