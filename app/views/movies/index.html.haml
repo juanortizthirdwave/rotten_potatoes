@@ -14,7 +14,7 @@
       %th{ class: @sort == "title" ? "hilite" : nil }
         %a#title_header{ href: movies_path({ order: :title })} Movie Title
       %th Rating
-      %th{ class: @sort == "date" ? "hilite" : nil }
+      %th{ class: @sort == "release_date" ? "hilite" : nil }
         %a#release_date_header{ href: movies_path({order: :release_date})} Release Date
       %th More Info
   %tbody
