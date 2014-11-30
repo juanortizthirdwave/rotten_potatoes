@@ -5,17 +5,17 @@
   Include:
   - @all_ratings.each do |rating|
     = rating
-    = check_box_tag "ratings[#{rating}]", 1, checked_value(rating)
+    = check_box_tag "ratings[#{rating}]", 1, checked_value(rating), id: "ratings_#{rating}"
   = submit_tag 'Refresh', id: "ratings_submit"
 
 %table#movies
   %thead
     %tr
       %th{ class: table_head_class("title") }
-        %a#title_header{ href: movies_path({ order: :title })} Movie Title
+        %a#title_header{ href: movies_path({ order: :title, ratings: @ratings })} Movie Title
       %th Rating
       %th{ class: table_head_class("release_date") }
-        %a#release_date_header{ href: movies_path({order: :release_date})} Release Date
+        %a#release_date_header{ href: movies_path({ order: :release_date, ratings: @ratings })} Release Date
       %th More Info
   %tbody
     - @movies.each do |movie|
