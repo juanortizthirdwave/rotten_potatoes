@@ -8,4 +8,8 @@ module MoviesHelper
     return true unless @rating_hash
     @rating_hash[:rating].include? rating
   end
+
+  def table_head_class(value)
+    (@order == value) ? "hilite" : nil
+  end
 end

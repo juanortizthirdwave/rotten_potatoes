@@ -11,10 +11,10 @@
 %table#movies
   %thead
     %tr
-      %th{ class: @sort == "title" ? "hilite" : nil }
+      %th{ class: table_head_class("title") }
         %a#title_header{ href: movies_path({ order: :title })} Movie Title
       %th Rating
-      %th{ class: @sort == "release_date" ? "hilite" : nil }
+      %th{ class: table_head_class("release_date") }
         %a#release_date_header{ href: movies_path({order: :release_date})} Release Date
       %th More Info
   %tbody
@@ -26,5 +26,3 @@
         %td= link_to "More about #{movie.title}", movie_path(movie)
 
 = link_to 'Add new movie', new_movie_path
--if @sort == 'title'
-  %a.hilite hola
