@@ -8,11 +8,11 @@ class MoviesController < ApplicationController
 
   def index
     @all_ratings = Movie.rating
+    @sort = params[:order]
     # debugger
     if params[:ratings]
       rating_hash = { rating: params[:ratings].keys }
       @movies = Movie.where(rating_hash).order(params[:order])
-      @sort = params[:order]
     else
       @movies = Movie.order(params[:order])
     end
