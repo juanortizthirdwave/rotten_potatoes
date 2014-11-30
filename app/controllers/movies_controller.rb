@@ -10,9 +10,15 @@ class MoviesController < ApplicationController
     @all_ratings = Movie.rating
     @sort = params[:order]
 
+    # debugger
+
     if params[:ratings]
-      @rating_hash = { rating: params[:ratings].keys }
+      session.clear
+      session[:ratings] = params[:ratings].keys
+      @rating_hash = { rating: session[:ratings] }
       @movies = Movie.where(@rating_hash).order(params[:order])
+    elsif session[:ratings]
+      @movies = Movie.where(rating: session[:ratings]).order(params[:order])
     else
       @movies = Movie.order(params[:order])
     end
