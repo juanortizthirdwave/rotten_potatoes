@@ -5,8 +5,8 @@ module MoviesHelper
   end
 
   def checked_value(rating)
-    return true unless @rating_hash
-    @rating_hash[:rating].include? rating
+    return true unless @ratings
+    @ratings.include? rating
   end
 
   def table_head_class(value)
