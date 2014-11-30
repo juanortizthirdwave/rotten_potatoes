@@ -3,6 +3,8 @@ class MoviesController < ApplicationController
   def show
     id = params[:id] # retrieve movie ID from URI route
     @movie = Movie.find(id) # look up movie by unique ID
+    @order = session[:order]
+    @ratings = session[:ratings].reduce({}){ |acc, it| acc.merge!({ :"#{it}" => 1 })}
     # will render app/views/movies/show.<extension> by default
   end
 
@@ -11,13 +13,11 @@ class MoviesController < ApplicationController
     session[:order] = params[:order] if params[:order]
     @order = session[:order]
 
-# debugger
     unless params[:ratings]
       session[:ratings] ||= @all_ratings 
       @ratings ||= session[:ratings]
     end
 
-    # debugger
     if params[:ratings]
       session[:ratings] = params[:ratings].keys
       @ratings = session[:ratings]
